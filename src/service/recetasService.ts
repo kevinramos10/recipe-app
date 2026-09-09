@@ -17,3 +17,12 @@ export const getCategory = async () => {
 
     return data.meals
 }
+
+const LOOKUP_API = 'https://www.themealdb.com/api/json/v1/1/lookup.php'
+
+export const getRecipeById = async (id: string) => {
+    const response = await fetch(`${LOOKUP_API}?i=${id}`)
+    const data = await response.json() as MealResponse
+    
+    return  data.meals?.[0]
+}
