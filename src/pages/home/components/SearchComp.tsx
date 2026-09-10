@@ -1,6 +1,12 @@
 import { Search } from "lucide-react"
 
-const SearchComp = () => {
+interface SearchCompProps {
+  busqueda: string
+  setBusqueda: (valor: string) => void
+  onBuscar: (e: React.KeyboardEvent<HTMLInputElement>) => void
+}
+
+const SearchComp = ({ busqueda, setBusqueda, onBuscar }: SearchCompProps) => {
   return (
     <div className=" flex flex-col gap-4 justify-center items-center  bg-orange-300  h-50">
 
@@ -14,6 +20,9 @@ const SearchComp = () => {
           className="bg-white text-lg outline-none px-4  " 
           type="text" 
           placeholder="Ej: pollo, pasta, ensalada..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          onKeyDown={onBuscar}
         />
       </div>
       
