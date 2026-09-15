@@ -13,10 +13,10 @@ const Header = () => {
 
       <nav>
         <a 
-          href="#" 
-          className=" flex gap-2 items-center text-white font-medium hover:text-orange-200 transition-colors"
-        >
-          <Star className="w-5 h-5" />
+        href="#" 
+        className=" flex gap-2 items-center text-whit font-medium  hover:text-orange-200  transition-colors">
+
+          <Star className="w-5 h-5 fill-orange-200" />
           Favoritos
         </a>
       </nav>

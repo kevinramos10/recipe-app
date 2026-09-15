@@ -17,6 +17,7 @@ const Homes = () => {
 
   const [busqueda, setBusqueda] = useState('')
 
+
   // Para montar todas las recetas
   useEffect(() => {
     const cargarRecetas = async () => {

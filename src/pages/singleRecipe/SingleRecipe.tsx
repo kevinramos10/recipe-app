@@ -3,12 +3,16 @@ import Header from "../../shared/components/header/Header"
 import { useEffect, useState } from "react"
 import type { Meal } from "../../module/recetas"
 import { getRecipeById } from "../../service/recetasService"
+import { Heart } from "lucide-react"
+import useFavoritosStore from "../../shared/store/useFavoritosStore"
 
 const SingleRecipe = () => {
 
   const { id } = useParams()
 
   const [receta, setReceta] = useState<Meal | null>(null)
+
+  const { agregarFavorito, quitarFavorito, esFavorito } = useFavoritosStore()
 
   useEffect(() => {
     const cargarReceta = async () => {
@@ -35,6 +39,25 @@ const SingleRecipe = () => {
     
   }
 
+  
+
+  const favorito = esFavorito(id ?? '')
+
+  const manejarFavorito = () => {
+
+    if (favorito){
+      quitarFavorito(id ?? '')
+    } else{
+      agregarFavorito({
+        idMeal: receta.idMeal ?? '',
+        strMeal: receta.strMeal ?? '',
+        strCategory: receta.strCategory ?? '',
+        strMealThumb: receta.strMealThumb ?? ''
+      })
+    }
+
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -53,9 +76,17 @@ const SingleRecipe = () => {
             className="rounded-lg w-130 self-start ml-33"
           />
 
-          <p className="bg-green-400 text-lg font-bold text-white rounded-2xl text-center px-4 py-2 self-start mt-5 ml-33 text-shadow-lg text-shadow-black/50" >
-            {receta.strCategory}
-          </p>
+          <div className="flex self-start ">
+            <p className="bg-green-400 text-lg font-bold text-white rounded-2xl text-center px-4 py-2 mt-5 ml-33 text-shadow-lg text-shadow-black/50" >
+              {receta.strCategory}
+            </p>
+
+            <Heart 
+            onClick={manejarFavorito}
+            className={`w-11 h-10 cursor-pointer ${favorito ? 'text-red-500 fill-red-500' : 'text-red-500 fill-none'}`}/>
+            
+          </div>
+          
         </div>
 
         <div className="bg-red-200 flex-1 flex justify-start items-start p-10 gap-10" >
